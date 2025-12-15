@@ -1,3 +1,4 @@
+![CleanShot 2025-12-14 at 21 46 26](https://github.com/user-attachments/assets/7a3d8129-e6ab-4ea5-8619-8bb38f5ad997)
 # SoulSync  
 **The only app in sync with your emotions**
 
