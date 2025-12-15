@@ -1,6 +1,11 @@
-![CleanShot 2025-12-14 at 21 46 26](https://github.com/user-attachments/assets/7a3d8129-e6ab-4ea5-8619-8bb38f5ad997)
-# SoulSync  
-**The only app in sync with your emotions**
+<p align="center">
+  <img
+    src="https://github.com/user-attachments/assets/15d576a3-6835-4890-b170-224ffdbd9d13"
+    alt="SoulSync demo"
+    width="1000"
+  />
+</p>
+
 
 SoulSync is an emotionally adaptive mental-wellness prototype designed to explore how empathetic AI interaction, journaling, and self-reflection tools can improve users’ perceived emotional support, trust, and comfort.  
 The project is developed as part of **SOEN 357 – User Interface Design (Fall 2025)** at Concordia University.
