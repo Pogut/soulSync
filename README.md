@@ -6,6 +6,24 @@
   />
 </p>
 
+<p align="center">
+  <a
+    href="https://soen357-soulsync.netlify.app/"
+    target="_blank"
+    style="
+      display: inline-block;
+      padding: 14px 28px;
+      font-weight: 600;
+      border-radius: 10px;
+      text-decoration: none;
+      background: #2B3D54;
+      color: white;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    "
+  >
+    CLICK HERE TO VIEW THE LIVE DEMO
+  </a>
+</p>
 
 SoulSync is an emotionally adaptive mental-wellness prototype designed to explore how empathetic AI interaction, journaling, and self-reflection tools can improve users’ perceived emotional support, trust, and comfort.  
 The project is developed as part of **SOEN 357 – User Interface Design (Fall 2025)** at Concordia University.
