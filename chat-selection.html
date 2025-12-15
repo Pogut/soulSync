@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat with Lumi</title>
+
+  <!-- Tailwind CDN (same as other pages) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Icons -->
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#6D83F2",
+            secondary: "#F3F4F6",
+            backgroundLight: "#F9F6F1",
+            backgroundDark: "#0F172A",
+            textLight: "#1F2937",
+            textDark: "#E5E7EB",
+          },
+          fontFamily: {
+            display: ["Inter", "system-ui", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="bg-backgroundLight dark:bg-backgroundDark text-textLight dark:text-textDark font-display min-h-screen antialiased transition-colors duration-300">
+
+  <!-- Background glow blobs -->
+  <div class="fixed top-[-10%] left-[-10%] w-[50%] h-[40%] bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
+  <div class="fixed bottom-[-10%] right-[-10%] w-[60%] h-[50%] bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+  <!-- ✅ PHONE CONTAINER -->
+  <div class="relative z-10 w-full max-w-md mx-auto min-h-screen flex flex-col overflow-hidden">
+
+    <!-- HEADER -->
+    <header class="pt-6 pb-2 px-6 flex flex-col items-center relative">
+      <div class="flex items-center gap-2 text-primary font-semibold">
+        <span class="material-icons-round">cloud</span>
+        <span>Soul Sync</span>
+      </div>
+
+      <button
+        onclick="go('dashboard.html')"
+        class="absolute right-6 top-6 w-9 h-9 rounded-full bg-white/80 dark:bg-white/10 flex items-center justify-center hover:scale-105 transition"
+      >
+        <span class="material-icons-round text-lg">close</span>
+      </button>
+    </header>
+
+    <!-- MAIN -->
+    <main class="flex-1 px-6 flex flex-col justify-center gap-6 pb-28">
+
+      <h1 class="text-2xl font-semibold">
+        Chat with <span class="text-primary">Lumi</span>
+      </h1>
+
+      <!-- Guided Flow -->
+      <button
+        onclick="go('guided-chat.html')"
+        class="group w-full bg-white dark:bg-white/5 rounded-2xl p-5 shadow-sm border border-black/5 dark:border-white/10 hover:shadow-md transition text-left"
+      >
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+            <span class="material-icons-round text-primary">auto_awesome</span>
+          </div>
+          <div>
+            <h2 class="font-semibold text-lg">Guided Flow</h2>
+            <p class="text-sm text-black/60 dark:text-white/60 mt-1">
+              Lumi guides the conversation by asking reflective questions.
+            </p>
+          </div>
+        </div>
+      </button>
+
+      <div class="flex items-center gap-4 text-xs text-black/40 dark:text-white/40">
+        <div class="flex-1 h-px bg-black/10 dark:bg-white/10"></div>
+        OR
+        <div class="flex-1 h-px bg-black/10 dark:bg-white/10"></div>
+      </div>
+
+      <!-- Free Flow -->
+      <button
+        onclick="go('freeflow-chat.html')"
+        class="group w-full bg-white dark:bg-white/5 rounded-2xl p-5 shadow-sm border border-black/5 dark:border-white/10 hover:shadow-md transition text-left"
+      >
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-orange-400/10 flex items-center justify-center">
+            <span class="material-icons-round text-orange-400">chat_bubble_outline</span>
+          </div>
+          <div>
+            <h2 class="font-semibold text-lg">Free Flow</h2>
+            <p class="text-sm text-black/60 dark:text-white/60 mt-1">
+              Start the conversation by sharing what’s on your mind.
+            </p>
+          </div>
+        </div>
+      </button>
+
+      <p class="text-center text-xs text-black/40 dark:text-white/40 mt-4">
+        Lumi is AI-powered and can make mistakes. Always consider professional help if needed.
+      </p>
+    </main>
+
+    <!-- FOOTER (constrained to phone width) -->
+    <footer
+      class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md p-4 pb-6
+             bg-gradient-to-t from-backgroundLight via-backgroundLight to-transparent
+             dark:from-backgroundDark dark:via-backgroundDark z-20"
+    >
+      <div class="flex items-center gap-3 bg-white dark:bg-white/5 rounded-full px-4 py-3 shadow border border-black/5 dark:border-white/10">
+        <input
+          type="text"
+          placeholder="Check-in here..."
+          class="flex-1 bg-transparent outline-none text-sm placeholder:text-black/40 dark:placeholder:text-white/40"
+          disabled
+        />
+        <button class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
+          <span class="material-icons-round text-primary text-lg">mic</span>
+        </button>
+        <button class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
+          <span class="material-icons-round text-primary text-lg">photo_camera</span>
+        </button>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Shared App Logic -->
+  <script src="assets/js/app.js"></script>
+  <script>requireAuth("index.html");</script>
+
+</body>
+</html>

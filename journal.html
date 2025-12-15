@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>SoulSync Journaling Main</title>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&amp;family=Quicksand:wght@500;700&amp;family=Material+Icons+Round&amp;display=swap" rel="stylesheet"/>
+
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#6EA1B5",
+            secondary: "#2B3D54",
+            "pearl-beige": "#F6E8C5",
+            "pitch-black": "#120D02",
+            "bright-snow": "#F9F7F4",
+            "background-light": "#F9F7F4",
+            "background-dark": "#120D02",
+          },
+          fontFamily: {
+            display: ["Quicksand", "sans-serif"],
+            body: ["Nunito", "sans-serif"],
+          },
+          borderRadius: {
+            DEFAULT: "1.5rem",
+            xl: "1rem",
+            "2xl": "1.5rem",
+            "3xl": "2rem",
+          },
+          animation: {
+            float: "float 8s ease-in-out infinite",
+            "pulse-glow": "pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+            twinkle: "twinkle 4s ease-in-out infinite",
+            blob: "blob 10s infinite",
+          },
+          keyframes: {
+            float: {
+              "0%, 100%": { transform: "translateY(0)" },
+              "50%": { transform: "translateY(-10px)" },
+            },
+            "pulse-glow": {
+              "0%, 100%": { opacity: 1, transform: "scale(1)" },
+              "50%": { opacity: 0.8, transform: "scale(1.05)" },
+            },
+            twinkle: {
+              "0%, 100%": { opacity: 0.3 },
+              "50%": { opacity: 0.8 },
+            },
+            blob: {
+              "0%": { transform: "translate(0px, 0px) scale(1)" },
+              "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+              "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+              "100%": { transform: "translate(0px, 0px) scale(1)" },
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .dark .glass {
+      background: rgba(43, 61, 84, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+    }
+
+    body { min-height: max(884px, 100dvh); }
+  </style>
+</head>
+
+<!-- ✅ key fix: no full-width stretch on desktop; the "phone" is max-w-md centered -->
+<body class="bg-background-light dark:bg-background-dark font-body text-secondary dark:text-pearl-beige antialiased transition-colors duration-300 overflow-hidden h-screen w-full relative">
+  <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#E8F1F5] to-background-light dark:from-[#1A2639] dark:to-background-dark opacity-100 transition-colors duration-500"></div>
+
+    <div class="absolute top-[-10%] right-[-20%] w-[300px] h-[300px] bg-primary/20 dark:bg-primary/10 rounded-full blur-[80px] animate-float"></div>
+    <div class="absolute bottom-[20%] left-[-10%] w-[250px] h-[250px] bg-pearl-beige/40 dark:bg-secondary/30 rounded-full blur-[60px] animate-float" style="animation-delay: 2s;"></div>
+
+    <svg class="absolute top-[15%] left-[10%] w-6 h-6 text-primary dark:text-pearl-beige opacity-40 animate-twinkle" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path>
+    </svg>
+    <svg class="absolute top-[40%] right-[15%] w-4 h-4 text-primary dark:text-pearl-beige opacity-30 animate-twinkle" fill="currentColor" style="animation-delay: 1.5s;" viewBox="0 0 24 24">
+      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path>
+    </svg>
+    <svg class="absolute bottom-[30%] left-[20%] w-3 h-3 text-secondary dark:text-primary opacity-20 animate-twinkle" fill="currentColor" style="animation-delay: 3s;" viewBox="0 0 24 24">
+      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path>
+    </svg>
+  </div>
+
+  <!-- ✅ phone wrapper -->
+  <div class="relative z-10 flex flex-col h-full w-full max-w-md mx-auto bg-transparent">
+    <header class="flex items-center justify-between px-6 pt-12 pb-4 glass sticky top-0 z-20 transition-all duration-300 border-b-0 rounded-b-3xl mx-2 mt-2 shadow-sm">
+      <!-- ✅ Back to dashboard -->
+      <button type="button" onclick="go('dashboard.html')" class="w-10 h-10 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors flex items-center justify-center group" aria-label="Back">
+        <span class="material-icons-round text-2xl text-secondary dark:text-pearl-beige group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
+      </button>
+
+      <div class="flex flex-col items-center">
+        <h1 class="font-display font-bold text-xl tracking-wide text-secondary dark:text-white">Your Journal</h1>
+      </div>
+
+      <button type="button" class="w-10 h-10 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors flex items-center justify-center" aria-label="Search">
+        <span class="material-icons-round text-2xl text-secondary dark:text-pearl-beige">search</span>
+      </button>
+    </header>
+
+    <main class="flex-1 overflow-y-auto no-scrollbar px-5 py-6 space-y-6 pb-32">
+      <div class="glass p-6 rounded-3xl relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-pearl-beige/40 to-transparent rounded-full blur-xl -mr-8 -mt-8 pointer-events-none"></div>
+        <p class="text-xs font-bold text-primary dark:text-pearl-beige uppercase tracking-wider mb-2">Daily Prompt</p>
+        <h2 class="font-display font-bold text-xl text-secondary dark:text-white leading-tight mb-3">
+          What is one thing that made you smile today?
+        </h2>
+
+        <!-- Optional: link later to journal-entry page -->
+        <div class="flex items-center gap-2 text-secondary/60 dark:text-bright-snow/60 text-sm cursor-pointer hover:text-primary transition-colors"
+             onclick="console.log('TODO: route to new journal entry page')">
+          <span class="material-icons-round text-base">edit</span>
+          <span>Write about it...</span>
+        </div>
+      </div>
+
+      <div class="flex gap-3 overflow-x-auto no-scrollbar pb-1">
+        <button class="px-5 py-2 rounded-xl bg-secondary text-white dark:bg-pearl-beige dark:text-secondary font-bold text-sm shadow-md shrink-0">All Entries</button>
+        <button class="px-5 py-2 rounded-xl bg-white/50 dark:bg-white/5 border border-white/20 text-secondary dark:text-pearl-beige font-bold text-sm shrink-0">Favorites</button>
+        <button class="px-5 py-2 rounded-xl bg-white/50 dark:bg-white/5 border border-white/20 text-secondary dark:text-pearl-beige font-bold text-sm shrink-0">Reflections</button>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-2 mb-3 ml-1">
+          <span class="h-2 w-2 rounded-full bg-primary"></span>
+          <h3 class="text-xs font-bold text-secondary/50 dark:text-pearl-beige/50 uppercase tracking-widest">Today</h3>
+        </div>
+
+        <div class="glass p-5 rounded-2xl mb-4 group active:scale-[0.98] transition-transform duration-200 cursor-pointer border border-white/20 dark:border-white/5">
+          <div class="flex justify-between items-start mb-2">
+            <span class="text-xs font-bold text-primary dark:text-pearl-beige bg-primary/10 dark:bg-pearl-beige/10 px-2 py-1 rounded-md">10:42 AM</span>
+            <span class="material-icons-round text-secondary/40 dark:text-white/40">more_horiz</span>
+          </div>
+          <h4 class="font-display font-bold text-lg text-secondary dark:text-white mb-1 group-hover:text-primary transition-colors">Morning stillness</h4>
+          <p class="text-secondary/70 dark:text-bright-snow/70 text-sm leading-relaxed line-clamp-2">
+            The rain outside is creating such a gentle rhythm against the window. I feel a sense of calm that I haven't felt in weeks...
+          </p>
+          <div class="mt-3 flex gap-2">
+            <span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-white/40 dark:bg-white/5 text-secondary/60 dark:text-pearl-beige/60">Calm</span>
+            <span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-white/40 dark:bg-white/5 text-secondary/60 dark:text-pearl-beige/60">Nature</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-2 mb-3 ml-1">
+          <span class="h-2 w-2 rounded-full bg-secondary/30 dark:bg-white/30"></span>
+          <h3 class="text-xs font-bold text-secondary/50 dark:text-pearl-beige/50 uppercase tracking-widest">Yesterday</h3>
+        </div>
+
+        <div class="glass p-5 rounded-2xl mb-4 group active:scale-[0.98] transition-transform duration-200 cursor-pointer border border-white/20 dark:border-white/5">
+          <div class="flex justify-between items-start mb-2">
+            <span class="text-xs font-bold text-secondary/60 dark:text-pearl-beige/60 bg-black/5 dark:bg-white/5 px-2 py-1 rounded-md">8:15 PM</span>
+            <span class="material-icons-round text-secondary/40 dark:text-white/40">more_horiz</span>
+          </div>
+          <h4 class="font-display font-bold text-lg text-secondary dark:text-white mb-1 group-hover:text-primary transition-colors">Overwhelmed at work</h4>
+          <p class="text-secondary/70 dark:text-bright-snow/70 text-sm leading-relaxed line-clamp-2">
+            Everything seemed to happen at once today. I struggled to keep up with the demands and felt my chest tightening around noon...
+          </p>
+          <div class="mt-3 flex gap-2">
+            <span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-white/40 dark:bg-white/5 text-secondary/60 dark:text-pearl-beige/60">Anxiety</span>
+            <span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-white/40 dark:bg-white/5 text-secondary/60 dark:text-pearl-beige/60">Work</span>
+          </div>
+        </div>
+
+        <div class="glass p-5 rounded-2xl mb-4 group active:scale-[0.98] transition-transform duration-200 cursor-pointer border border-white/20 dark:border-white/5">
+          <div class="flex justify-between items-start mb-2">
+            <span class="text-xs font-bold text-secondary/60 dark:text-pearl-beige/60 bg-black/5 dark:bg-white/5 px-2 py-1 rounded-md">7:30 AM</span>
+            <div class="flex gap-2">
+              <span class="material-icons-round text-primary text-sm">favorite</span>
+              <span class="material-icons-round text-secondary/40 dark:text-white/40">more_horiz</span>
+            </div>
+          </div>
+          <h4 class="font-display font-bold text-lg text-secondary dark:text-white mb-1 group-hover:text-primary transition-colors">A dream about flying</h4>
+          <p class="text-secondary/70 dark:text-bright-snow/70 text-sm leading-relaxed line-clamp-2">
+            I woke up feeling incredibly light. In the dream, I was soaring over a landscape of clouds...
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <div class="absolute bottom-8 right-6 z-30">
+      <button type="button"
+        class="shadow-[0_8px_30px_rgb(0,0,0,0.12)] bg-secondary dark:bg-pearl-beige text-white dark:text-secondary h-14 w-14 rounded-full flex items-center justify-center transform active:scale-90 transition-all hover:-translate-y-1 hover:shadow-xl ring-4 ring-white/20 dark:ring-black/20"
+        onclick="console.log('TODO: route to new journal entry page')"
+        aria-label="Add entry">
+        <span class="material-icons-round text-3xl">add</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ✅ shared helpers + auth -->
+  <script src="assets/js/app.js"></script>
+  <script>
+    requireAuth("index.html"); // change if your login page has a different name
+    // demo: double click toggles dark mode
+    document.addEventListener("dblclick", () => {
+      document.documentElement.classList.toggle("dark");
+    });
+  </script>
+</body>
+</html>

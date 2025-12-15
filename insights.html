@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>SoulSync Insights</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@500;700&family=Material+Icons+Round&display=swap" rel="stylesheet"/>
+
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#6EA1B5",
+            secondary: "#2B3D54",
+            "pearl-beige": "#F6E8C5",
+            "pitch-black": "#120D02",
+            "bright-snow": "#F9F7F4",
+            "background-light": "#F9F7F4",
+            "background-dark": "#120D02",
+          },
+          fontFamily: { display: ["Quicksand", "sans-serif"], body: ["Nunito", "sans-serif"] },
+          borderRadius: { DEFAULT: "1.5rem", xl: "1rem", "2xl": "1.5rem", "3xl": "2rem" },
+          animation: {
+            float: "float 8s ease-in-out infinite",
+            "pulse-glow": "pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+            twinkle: "twinkle 4s ease-in-out infinite",
+            blob: "blob 10s infinite",
+          },
+          keyframes: {
+            float: { "0%, 100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-10px)" } },
+            "pulse-glow": { "0%, 100%": { opacity: 1, transform: "scale(1)" }, "50%": { opacity: 0.8, transform: "scale(1.05)" } },
+            twinkle: { "0%, 100%": { opacity: 0.3 }, "50%": { opacity: 0.8 } },
+            blob: {
+              "0%": { transform: "translate(0px, 0px) scale(1)" },
+              "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+              "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+              "100%": { transform: "translate(0px, 0px) scale(1)" },
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .glass {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .dark .glass {
+      background: rgba(43, 61, 84, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+    }
+    body { min-height: max(884px, 100dvh); }
+  </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-body text-secondary dark:text-pearl-beige antialiased transition-colors duration-300 overflow-hidden h-screen w-full relative">
+  <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#E8F1F5] to-background-light dark:from-[#1A2639] dark:to-background-dark opacity-100 transition-colors duration-500"></div>
+    <div class="absolute top-[-10%] right-[-20%] w-[300px] h-[300px] bg-primary/20 dark:bg-primary/10 rounded-full blur-[80px] animate-float"></div>
+    <div class="absolute bottom-[20%] left-[-10%] w-[250px] h-[250px] bg-pearl-beige/40 dark:bg-secondary/30 rounded-full blur-[60px] animate-float" style="animation-delay: 2s;"></div>
+    <svg class="absolute top-[15%] left-[10%] w-6 h-6 text-primary dark:text-pearl-beige opacity-40 animate-twinkle" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+    <svg class="absolute top-[40%] right-[15%] w-4 h-4 text-primary dark:text-pearl-beige opacity-30 animate-twinkle" fill="currentColor" style="animation-delay: 1.5s;" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+    <svg class="absolute bottom-[30%] left-[20%] w-3 h-3 text-secondary dark:text-primary opacity-20 animate-twinkle" fill="currentColor" style="animation-delay: 3s;" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+  </div>
+
+  <div class="relative z-10 flex flex-col h-full max-w-md mx-auto bg-transparent">
+    <header class="flex items-center justify-between px-6 pt-12 pb-4 glass sticky top-0 z-20 transition-all duration-300 border-b-0 rounded-b-3xl mx-2 mt-2 shadow-sm">
+      <button onclick="go('dashboard.html')" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+        <span class="material-icons-round text-2xl text-secondary dark:text-pearl-beige">arrow_back</span>
+      </button>
+      <div class="flex flex-col items-center">
+        <span class="font-display font-bold text-lg tracking-wide text-secondary dark:text-white">Insights</span>
+      </div>
+      <button class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+        <span class="material-icons-round text-2xl text-secondary dark:text-pearl-beige">calendar_today</span>
+      </button>
+    </header>
+
+    <main class="flex-1 overflow-y-auto no-scrollbar px-5 py-6 space-y-6 pb-24">
+      <div class="glass p-6 rounded-3xl relative overflow-hidden animate-[float_6s_ease-in-out_infinite]">
+        <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-pearl-beige/50 to-transparent rounded-full blur-2xl -mr-10 -mt-10"></div>
+        <div class="flex items-center justify-between mb-2">
+          <p class="text-xs font-bold text-primary dark:text-pearl-beige uppercase tracking-wider opacity-80">This Week</p>
+          <span class="material-icons-round text-primary/40 text-lg">auto_awesome</span>
+        </div>
+
+        <h2 class="font-display font-bold text-2xl text-secondary dark:text-white leading-tight mb-6 relative z-10">
+          You’ve been feeling <br />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary dark:from-pearl-beige dark:to-primary">deeply introspective</span>
+        </h2>
+
+        <div class="flex justify-center py-4">
+          <div class="relative w-40 h-40">
+            <div class="absolute inset-0 bg-primary/20 dark:bg-pearl-beige/20 rounded-full blur-xl animate-pulse-glow"></div>
+            <div class="absolute inset-4 bg-gradient-to-tr from-primary/40 to-pearl-beige/60 rounded-full blur-md flex items-center justify-center shadow-inner border border-white/20">
+              <span class="material-icons-round text-5xl text-white opacity-90 drop-shadow-md">self_improvement</span>
+            </div>
+            <div class="absolute top-0 right-1/4 w-3 h-3 bg-secondary dark:bg-white rounded-full blur-[1px] animate-[spin_10s_linear_infinite] origin-[250%_250%]"></div>
+          </div>
+        </div>
+
+        <div class="bg-white/40 dark:bg-black/10 rounded-xl p-4 mt-2">
+          <p class="text-secondary/90 dark:text-bright-snow/90 text-center leading-relaxed font-medium italic text-sm">
+            "There is a calmness in your words this week, like a lake settling after rain."
+          </p>
+        </div>
+      </div>
+
+      <div class="glass p-6 rounded-3xl border-l-4 border-l-pearl-beige">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-10 h-10 rounded-full bg-pearl-beige/30 flex items-center justify-center shrink-0">
+            <span class="material-icons-round text-secondary dark:text-pearl-beige">insights</span>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-lg text-secondary dark:text-white">A pattern we noticed together...</h3>
+          </div>
+        </div>
+        <div class="pl-14">
+          <p class="text-secondary/80 dark:text-bright-snow/80 leading-relaxed mb-4 text-sm">
+            You seem to find clarity in the evenings. Your entries after 8 PM are filled with more hope than morning ones.
+          </p>
+          <div class="w-full h-1.5 bg-secondary/5 dark:bg-white/10 rounded-full overflow-hidden flex mb-2">
+            <div class="w-[30%] bg-primary/30 h-full"></div>
+            <div class="w-[70%] bg-gradient-to-r from-pearl-beige to-primary h-full rounded-full"></div>
+          </div>
+          <div class="flex justify-between text-[10px] uppercase tracking-wider font-bold text-secondary/40 dark:text-pearl-beige/40">
+            <span>Morning Energy</span>
+            <span>Evening Clarity</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-6 rounded-3xl">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="font-display font-bold text-lg text-secondary dark:text-white">Emotional Landscape</h3>
+          <span class="text-xs bg-secondary/5 dark:bg-white/10 px-2 py-1 rounded-lg text-secondary/60 dark:text-pearl-beige/60">Nov 12-19</span>
+        </div>
+
+        <div class="relative h-40 w-full">
+          <div class="absolute top-0 left-0 text-[10px] uppercase tracking-widest text-secondary/30 dark:text-pearl-beige/30 font-bold">Flow</div>
+          <div class="absolute bottom-0 left-0 text-[10px] uppercase tracking-widest text-secondary/30 dark:text-pearl-beige/30 font-bold">Rest</div>
+
+          <svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 50">
+            <defs>
+              <linearGradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#6EA1B5" stop-opacity="0.4"></stop>
+                <stop offset="100%" stop-color="#6EA1B5" stop-opacity="0"></stop>
+              </linearGradient>
+            </defs>
+            <path d="M0,45 C20,40 30,15 50,25 C70,35 80,10 100,20 V50 H0 Z" fill="url(#chartGradient)"></path>
+            <path class="drop-shadow-sm opacity-80" d="M0,45 C20,40 30,15 50,25 C70,35 80,10 100,20" fill="none" stroke="#6EA1B5" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+            <circle class="fill-pearl-beige animate-pulse shadow-lg" cx="50" cy="25" r="3"></circle>
+            <circle class="fill-pearl-beige animate-pulse shadow-lg" cx="90" cy="18" r="3" style="animation-delay: 1s;"></circle>
+          </svg>
+        </div>
+
+        <div class="mt-4 flex justify-between px-2">
+          <span class="text-xs font-semibold text-secondary/50 dark:text-pearl-beige/50">M</span>
+          <span class="text-xs font-semibold text-secondary/50 dark:text-pearl-beige/50">T</span>
+          <span class="text-xs font-semibold text-secondary/50 dark:text-pearl-beige/50">W</span>
+          <span class="text-xs font-semibold text-secondary/50 dark:text-pearl-beige/50">T</span>
+          <span class="text-xs font-semibold text-secondary/50 dark:text-pearl-beige/50">F</span>
+          <span class="text-xs font-semibold text-secondary/50 dark:text-pearl-beige/50">S</span>
+          <span class="text-xs font-semibold text-secondary/50 dark:text-pearl-beige/50">S</span>
+        </div>
+      </div>
+
+      <div class="glass p-6 rounded-3xl">
+        <h3 class="font-display font-bold text-lg text-secondary dark:text-white mb-4">Recurring Themes</h3>
+        <div class="flex flex-wrap gap-3">
+          <span class="px-4 py-2 rounded-2xl bg-white/60 dark:bg-white/5 border border-white/40 dark:border-white/10 text-secondary dark:text-pearl-beige text-sm font-semibold shadow-sm backdrop-blur-sm">Growth</span>
+          <span class="px-4 py-2 rounded-2xl bg-primary/20 border border-primary/20 text-secondary dark:text-primary-light text-sm font-semibold shadow-sm backdrop-blur-sm">Anxiety</span>
+          <span class="px-4 py-2 rounded-2xl bg-pearl-beige/40 border border-pearl-beige/30 text-secondary dark:text-white text-sm font-semibold shadow-sm backdrop-blur-sm">Connection</span>
+          <span class="px-4 py-2 rounded-2xl bg-white/60 dark:bg-white/5 border border-white/40 dark:border-white/10 text-secondary dark:text-pearl-beige text-sm font-semibold shadow-sm backdrop-blur-sm">Sleep</span>
+          <span class="px-4 py-2 rounded-2xl bg-secondary/10 dark:bg-white/5 border border-secondary/10 dark:border-white/10 text-secondary dark:text-pearl-beige text-sm font-semibold shadow-sm backdrop-blur-sm">Gratitude</span>
+        </div>
+      </div>
+    </main>
+
+    <div class="absolute bottom-6 left-0 right-0 flex justify-center z-30 pointer-events-none">
+      <button onclick="go('mood-journal.html')" class="pointer-events-auto shadow-[0_8px_30px_rgb(0,0,0,0.12)] bg-secondary dark:bg-pearl-beige text-white dark:text-secondary px-8 py-4 rounded-full font-display font-bold text-sm flex items-center gap-2 transform active:scale-95 transition-all hover:-translate-y-1 ring-4 ring-white/20 dark:ring-black/20">
+        <span class="material-icons-round text-lg">edit_note</span>
+        Reflect on this
+      </button>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+  <script>requireAuth("index.html");</script>
+</body>
+</html>

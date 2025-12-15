@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>SoulSync Mood Tracker</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#6EA1B5",
+            secondary: "#2B3D54",
+            "pearl-beige": "#F6E8C5",
+            "pitch-black": "#120D02",
+            "bright-snow": "#F9F7F4",
+            "background-light": "#F9F7F4",
+            "background-dark": "#120D02",
+          },
+          fontFamily: { display: ["Quicksand", "sans-serif"], body: ["Nunito", "sans-serif"] },
+          borderRadius: { DEFAULT: "1.5rem", xl: "1rem", "2xl": "1.5rem", "3xl": "2rem" },
+          animation: {
+            float: "float 8s ease-in-out infinite",
+            "pulse-glow": "pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+            twinkle: "twinkle 4s ease-in-out infinite",
+            draw: "draw 2s ease-out forwards",
+          },
+          keyframes: {
+            float: { "0%, 100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-10px)" } },
+            "pulse-glow": { "0%, 100%": { opacity: 1, transform: "scale(1)" }, "50%": { opacity: 0.8, transform: "scale(1.05)" } },
+            twinkle: { "0%, 100%": { opacity: 0.3 }, "50%": { opacity: 0.8 } },
+            draw: { "0%": { strokeDasharray: "1000", strokeDashoffset: "1000" }, "100%": { strokeDasharray: "1000", strokeDashoffset: "0" } },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .glass {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .dark .glass { background: rgba(43, 61, 84, 0.4); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .glass-card { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.3); }
+    .dark .glass-card { background: rgba(43, 61, 84, 0.25); border: 1px solid rgba(255, 255, 255, 0.05); }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 20px; width: 20px; border-radius: 50%;
+      background: #F6E8C5; cursor: pointer;
+      box-shadow: 0 0 10px rgba(246, 232, 197, 0.5);
+      margin-top: -8px;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%; height: 4px; cursor: pointer;
+      background: rgba(110, 161, 181, 0.3);
+      border-radius: 2px;
+    }
+    body { min-height: max(884px, 100dvh); }
+  </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-body text-secondary dark:text-pearl-beige antialiased transition-colors duration-300 overflow-hidden h-screen w-full relative">
+  <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#E8F1F5] to-background-light dark:from-[#1A2639] dark:to-background-dark opacity-100 transition-colors duration-500"></div>
+    <div class="absolute top-[-5%] right-[-10%] w-[350px] h-[350px] bg-primary/15 dark:bg-primary/10 rounded-full blur-[90px] animate-float"></div>
+    <div class="absolute bottom-[10%] left-[-5%] w-[300px] h-[300px] bg-pearl-beige/30 dark:bg-secondary/20 rounded-full blur-[70px] animate-float" style="animation-delay: 2s;"></div>
+    <svg class="absolute top-[12%] left-[8%] w-5 h-5 text-primary dark:text-pearl-beige opacity-40 animate-twinkle" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+    <svg class="absolute top-[35%] right-[12%] w-3 h-3 text-primary dark:text-pearl-beige opacity-30 animate-twinkle" fill="currentColor" style="animation-delay: 1.5s;" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+    <svg class="absolute bottom-[40%] left-[25%] w-2 h-2 text-secondary dark:text-primary opacity-20 animate-twinkle" fill="currentColor" style="animation-delay: 3s;" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+  </div>
+
+  <div class="relative z-10 flex flex-col h-full max-w-md mx-auto bg-transparent">
+    <header class="flex items-center justify-between px-6 pt-12 pb-4 glass sticky top-0 z-20 transition-all duration-300">
+      <button onclick="go('dashboard.html')" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+        <span class="material-symbols-outlined text-2xl text-secondary dark:text-pearl-beige">arrow_back</span>
+      </button>
+      <div class="flex flex-col items-center">
+        <span class="font-display font-bold text-lg tracking-wide text-secondary dark:text-white">SoulSync</span>
+        <span class="text-xs font-medium text-secondary/60 dark:text-pearl-beige/60 tracking-wider uppercase">Mood Journal</span>
+      </div>
+      <button class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+        <span class="material-symbols-outlined text-2xl text-secondary dark:text-pearl-beige">history</span>
+      </button>
+    </header>
+
+    <main class="flex-1 overflow-y-auto no-scrollbar px-6 py-4 space-y-8 pb-32">
+      <div class="flex justify-center mb-2">
+        <span class="text-sm font-semibold text-secondary/50 dark:text-pearl-beige/40">Wednesday, October 24</span>
+      </div>
+
+      <div class="space-y-4 animate-[float_4s_ease-in-out_1]">
+        <h2 class="text-xl font-display font-bold text-center text-secondary dark:text-bright-snow">How does your soul feel?</h2>
+
+        <div class="flex justify-between items-center px-2 py-4">
+          <!-- Keep your UI; could later add click handlers -->
+          <button class="group flex flex-col items-center gap-2 transition-transform hover:scale-110 focus:scale-110 outline-none">
+            <div class="w-12 h-12 rounded-full glass-card flex items-center justify-center group-hover:bg-primary/20 group-focus:bg-primary/30 transition-colors border border-transparent group-focus:border-primary/50">
+              <span class="material-symbols-outlined text-3xl text-secondary/60 dark:text-pearl-beige/60 group-hover:text-primary dark:group-hover:text-pearl-beige">sentiment_very_dissatisfied</span>
+            </div>
+            <span class="text-[10px] opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity font-bold uppercase tracking-wider text-secondary/50 dark:text-pearl-beige/50">Heavy</span>
+          </button>
+
+          <button class="group flex flex-col items-center gap-2 transition-transform hover:scale-110 focus:scale-110 outline-none">
+            <div class="w-12 h-12 rounded-full glass-card flex items-center justify-center group-hover:bg-primary/20 group-focus:bg-primary/30 transition-colors border border-transparent group-focus:border-primary/50">
+              <span class="material-symbols-outlined text-3xl text-secondary/60 dark:text-pearl-beige/60 group-hover:text-primary dark:group-hover:text-pearl-beige">sentiment_dissatisfied</span>
+            </div>
+            <span class="text-[10px] opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity font-bold uppercase tracking-wider text-secondary/50 dark:text-pearl-beige/50">Low</span>
+          </button>
+
+          <button class="group flex flex-col items-center gap-2 transition-transform scale-110 outline-none">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-pearl-beige to-white dark:from-secondary dark:to-primary shadow-lg shadow-primary/20 dark:shadow-black/30 flex items-center justify-center border-2 border-white/50 dark:border-white/10">
+              <span class="material-symbols-outlined text-4xl text-secondary dark:text-white">sentiment_neutral</span>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-secondary dark:text-pearl-beige">Balanced</span>
+          </button>
+
+          <button class="group flex flex-col items-center gap-2 transition-transform hover:scale-110 focus:scale-110 outline-none">
+            <div class="w-12 h-12 rounded-full glass-card flex items-center justify-center group-hover:bg-primary/20 group-focus:bg-primary/30 transition-colors border border-transparent group-focus:border-primary/50">
+              <span class="material-symbols-outlined text-3xl text-secondary/60 dark:text-pearl-beige/60 group-hover:text-primary dark:group-hover:text-pearl-beige">sentiment_satisfied</span>
+            </div>
+            <span class="text-[10px] opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity font-bold uppercase tracking-wider text-secondary/50 dark:text-pearl-beige/50">Good</span>
+          </button>
+
+          <button class="group flex flex-col items-center gap-2 transition-transform hover:scale-110 focus:scale-110 outline-none">
+            <div class="w-12 h-12 rounded-full glass-card flex items-center justify-center group-hover:bg-primary/20 group-focus:bg-primary/30 transition-colors border border-transparent group-focus:border-primary/50">
+              <span class="material-symbols-outlined text-3xl text-secondary/60 dark:text-pearl-beige/60 group-hover:text-primary dark:group-hover:text-pearl-beige">sentiment_very_satisfied</span>
+            </div>
+            <span class="text-[10px] opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity font-bold uppercase tracking-wider text-secondary/50 dark:text-pearl-beige/50">Radiant</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="glass-card rounded-2xl p-4 space-y-2">
+        <label class="block text-sm font-medium text-secondary/70 dark:text-pearl-beige/70 ml-1">
+          <span class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-lg">edit_note</span>
+            Brief Note (Optional)
+          </span>
+        </label>
+        <textarea class="w-full bg-white/40 dark:bg-black/20 border-0 rounded-xl text-secondary dark:text-bright-snow placeholder-secondary/30 dark:placeholder-pearl-beige/30 focus:ring-1 focus:ring-primary/50 resize-none py-3 px-4 text-sm leading-relaxed" placeholder="What's flowing through your mind right now?" rows="3"></textarea>
+      </div>
+
+      <div class="space-y-3">
+        <div class="flex items-center justify-between px-1">
+          <h3 class="text-sm font-bold uppercase tracking-wide text-secondary/60 dark:text-pearl-beige/60">Your Pattern</h3>
+          <span class="text-xs text-secondary/40 dark:text-pearl-beige/40">Last 7 Days</span>
+        </div>
+
+        <div class="glass rounded-2xl p-5 relative overflow-hidden min-h-[160px] flex items-center justify-center">
+          <div class="absolute inset-0 opacity-30 bg-gradient-to-r from-transparent via-primary/5 to-transparent"></div>
+
+          <svg class="w-full h-full absolute inset-0 z-10 p-4" preserveAspectRatio="none" viewBox="0 0 300 100">
+            <path class="animate-draw drop-shadow-md" d="M10,80 C50,80 70,50 100,50 C130,50 150,20 180,30 C210,40 230,70 260,60 C275,55 285,40 290,40" fill="none" stroke="url(#gradientLine)" stroke-linecap="round" stroke-width="3"></path>
+            <defs>
+              <linearGradient id="gradientLine" x1="0%" x2="100%" y1="0%" y2="0%">
+                <stop offset="0%" stop-color="#2B3D54" stop-opacity="0.4"></stop>
+                <stop offset="50%" stop-color="#6EA1B5"></stop>
+                <stop offset="100%" stop-color="#F6E8C5"></stop>
+              </linearGradient>
+            </defs>
+            <circle class="fill-secondary dark:fill-primary/50" cx="10" cy="80" r="3"></circle>
+            <circle class="fill-primary dark:fill-pearl-beige/70" cx="100" cy="50" r="3"></circle>
+            <circle class="fill-pearl-beige dark:fill-white animate-pulse-glow" cx="180" cy="30" r="4"></circle>
+            <circle class="fill-primary dark:fill-primary" cx="260" cy="60" r="3"></circle>
+            <circle class="fill-pearl-beige/80 dark:fill-pearl-beige" cx="290" cy="40" r="3"></circle>
+          </svg>
+
+          <div class="absolute bottom-2 w-full flex justify-between px-4 text-[10px] text-secondary/30 dark:text-pearl-beige/30 font-display">
+            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Today</span>
+          </div>
+        </div>
+
+        <p class="text-xs text-center text-secondary/50 dark:text-pearl-beige/50 italic px-4">
+          "Like the tides, your feelings ebb and flow naturally."
+        </p>
+      </div>
+
+      <div class="glass-card rounded-xl p-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="p-2 rounded-full bg-primary/10 dark:bg-pearl-beige/10 text-primary dark:text-pearl-beige">
+            <span class="material-symbols-outlined text-xl">notifications_active</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-sm font-bold text-secondary dark:text-bright-snow">Gentle Reminder</span>
+            <span class="text-xs text-secondary/50 dark:text-pearl-beige/50">Daily check-in at 8:00 PM</span>
+          </div>
+        </div>
+
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input checked class="sr-only peer" type="checkbox" value=""/>
+          <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+        </label>
+      </div>
+    </main>
+
+    <div class="absolute bottom-0 w-full p-6 z-30 bg-gradient-to-t from-white via-white/80 to-transparent dark:from-background-dark dark:via-background-dark/80 pt-12">
+      <button onclick="go('dashboard.html')" class="w-full py-4 rounded-2xl bg-secondary dark:bg-pearl-beige text-white dark:text-pitch-black font-display font-bold text-lg shadow-xl shadow-secondary/20 dark:shadow-pearl-beige/10 hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-95 flex items-center justify-center gap-2 group">
+        <span>Save Reflection</span>
+        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+      </button>
+      <div class="w-full flex justify-center mt-4 mb-1"><div class="w-32 h-1 bg-secondary/20 dark:bg-white/20 rounded-full"></div></div>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+  <script>
+    requireAuth("index.html");
+
+    // Simple textarea auto-resize
+    const textarea = document.querySelector("textarea");
+    if (textarea) {
+      textarea.addEventListener("input", function () {
+        this.style.height = "auto";
+        this.style.height = this.scrollHeight + "px";
+        if (this.value === "") this.style.height = "auto";
+      });
+    }
+  </script>
+</body>
+</html>

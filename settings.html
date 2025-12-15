@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>SoulSync Settings &amp; Privacy</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@500;700&family=Material+Icons+Round&display=swap" rel="stylesheet"/>
+
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#6EA1B5",
+            secondary: "#2B3D54",
+            "pearl-beige": "#F6E8C5",
+            "pitch-black": "#120D02",
+            "bright-snow": "#F9F7F4",
+            "background-light": "#F9F7F4",
+            "background-dark": "#120D02",
+          },
+          fontFamily: { display: ["Quicksand", "sans-serif"], body: ["Nunito", "sans-serif"] },
+          borderRadius: { DEFAULT: "1.5rem", xl: "1rem", "2xl": "1.5rem", "3xl": "2rem" },
+          animation: { float: "float 8s ease-in-out infinite", "pulse-glow": "pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite", twinkle: "twinkle 4s ease-in-out infinite" },
+          keyframes: {
+            float: { "0%, 100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-10px)" } },
+            "pulse-glow": { "0%, 100%": { opacity: 1, transform: "scale(1)" }, "50%": { opacity: 0.8, transform: "scale(1.05)" } },
+            twinkle: { "0%, 100%": { opacity: 0.3 }, "50%": { opacity: 0.8 } },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .glass {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .dark .glass { background: rgba(43, 61, 84, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); }
+    .toggle-checkbox:checked { right: 0; border-color: #6EA1B5; }
+    .toggle-checkbox:checked + .toggle-label { background-color: #6EA1B5; }
+    body { min-height: max(884px, 100dvh); }
+  </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-body text-secondary dark:text-pearl-beige antialiased transition-colors duration-300 overflow-hidden h-screen w-full relative">
+  <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#E8F1F5] to-background-light dark:from-[#1A2639] dark:to-background-dark opacity-100 transition-colors duration-500"></div>
+    <div class="absolute top-[-10%] right-[-20%] w-[300px] h-[300px] bg-primary/20 dark:bg-primary/10 rounded-full blur-[80px] animate-float"></div>
+    <div class="absolute bottom-[20%] left-[-10%] w-[250px] h-[250px] bg-pearl-beige/40 dark:bg-secondary/30 rounded-full blur-[60px] animate-float" style="animation-delay: 2s;"></div>
+    <svg class="absolute top-[15%] left-[10%] w-6 h-6 text-primary dark:text-pearl-beige opacity-40 animate-twinkle" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+    <svg class="absolute top-[40%] right-[15%] w-4 h-4 text-primary dark:text-pearl-beige opacity-30 animate-twinkle" fill="currentColor" style="animation-delay: 1.5s;" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+    <svg class="absolute bottom-[30%] left-[20%] w-3 h-3 text-secondary dark:text-primary opacity-20 animate-twinkle" fill="currentColor" style="animation-delay: 3s;" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+  </div>
+
+  <div class="relative z-10 flex flex-col h-full max-w-md mx-auto bg-transparent">
+    <header class="flex items-center justify-between px-6 pt-12 pb-4 sticky top-0 z-20 transition-all duration-300">
+      <button onclick="go('dashboard.html')" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+        <span class="material-icons-round text-2xl text-secondary dark:text-pearl-beige">arrow_back</span>
+      </button>
+      <div class="flex flex-col items-center">
+        <span class="font-display font-bold text-lg tracking-wide text-secondary dark:text-white">Settings</span>
+        <span class="text-xs font-medium text-secondary/60 dark:text-pearl-beige/60 tracking-wider uppercase">Privacy &amp; Controls</span>
+      </div>
+      <div class="w-10"></div>
+    </header>
+
+    <main class="flex-1 overflow-y-auto no-scrollbar px-5 pb-8 space-y-6">
+      <div class="glass p-5 rounded-3xl flex items-center gap-4 transition-transform active:scale-[0.99]">
+        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-pearl-beige to-primary p-[2px] relative">
+          <img alt="Profile" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtsNTH22eMpYeFRsEhV6xVhwQHYop8Wkls1SmiqPBqe3k7WbnWVn7lqfagvWPY00qEtKT90bwPqAsPtunnQreUeqI9-HVp6aHhb256ArmKr7qrXXw1rqHJPbHRtusOfBxt65aM0YZ-sx65ZsGEPXnFFmO3lZzb7YIo0j8QD0w05Iq1e78rQvcQNoeeG_6GlhToSZUM0Aw3NQgTWuJZO49ExoE2JfqhlPGVIjyL1IVuTXLmdGsfpUtoyiUPBReEkvGVMbOp5qsmFM6f"/>
+          <button class="absolute bottom-0 right-0 bg-secondary text-white rounded-full p-1 shadow-md">
+            <span class="material-icons-round text-xs">edit</span>
+          </button>
+        </div>
+
+        <div class="flex-1">
+          <h2 class="font-display font-bold text-xl text-secondary dark:text-white">Alex Morgan</h2>
+          <p class="text-sm text-secondary/60 dark:text-pearl-beige/60">Free Account</p>
+        </div>
+        <span class="material-icons-round text-secondary/40 dark:text-pearl-beige/40">chevron_right</span>
+      </div>
+
+      <section class="space-y-3">
+        <h3 class="px-2 text-sm font-bold uppercase tracking-wider text-secondary/50 dark:text-pearl-beige/50">Data &amp; Trust</h3>
+        <div class="glass rounded-3xl overflow-hidden divide-y divide-gray-200/20 dark:divide-white/10">
+          <div class="p-4 hover:bg-white/10 transition-colors">
+            <div class="flex justify-between items-start gap-4 mb-2">
+              <div class="flex items-center gap-3">
+                <span class="material-icons-round text-primary text-xl">psychology</span>
+                <span class="font-bold text-secondary dark:text-white">Lumi Learning</span>
+              </div>
+              <div class="relative inline-block w-12 h-6 align-middle select-none transition duration-200 ease-in">
+                <input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 dark:border-gray-600 transition-all duration-300 ease-in-out right-6 checked:right-0 checked:border-primary" id="toggle-lumi" name="toggle" type="checkbox"/>
+                <label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 dark:bg-gray-600 cursor-pointer transition-colors duration-300 ease-in-out" for="toggle-lumi"></label>
+              </div>
+            </div>
+            <p class="text-xs leading-relaxed text-secondary/70 dark:text-pearl-beige/70 pl-8">
+              Allow Lumi to learn from your past entries to provide more personalized emotional support.
+              <a class="underline text-primary" href="#">Learn how we protect this.</a>
+            </p>
+          </div>
+
+          <div class="p-4 flex items-center justify-between hover:bg-white/10 transition-colors">
+            <div class="flex items-center gap-3">
+              <span class="material-icons-round text-primary text-xl">fingerprint</span>
+              <div>
+                <span class="block font-bold text-secondary dark:text-white">App Lock</span>
+                <span class="block text-xs text-secondary/60 dark:text-pearl-beige/60">Require Face ID to open</span>
+              </div>
+            </div>
+            <div class="relative inline-block w-12 h-6 align-middle select-none transition duration-200 ease-in">
+              <input checked class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 dark:border-gray-600 transition-all duration-300 ease-in-out right-6 checked:right-0 checked:border-primary" id="toggle-bio" name="toggle" type="checkbox"/>
+              <label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 dark:bg-gray-600 cursor-pointer transition-colors duration-300 ease-in-out" for="toggle-bio"></label>
+            </div>
+          </div>
+
+          <button class="w-full p-4 flex items-center justify-between hover:bg-white/10 transition-colors text-left">
+            <div class="flex items-center gap-3">
+              <span class="material-icons-round text-primary text-xl">download</span>
+              <div>
+                <span class="block font-bold text-secondary dark:text-white">Export My Journal</span>
+                <span class="block text-xs text-secondary/60 dark:text-pearl-beige/60">Download a copy of your thoughts</span>
+              </div>
+            </div>
+            <span class="material-icons-round text-secondary/40 dark:text-pearl-beige/40">chevron_right</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="space-y-3">
+        <h3 class="px-2 text-sm font-bold uppercase tracking-wider text-secondary/50 dark:text-pearl-beige/50">Comfort</h3>
+        <div class="glass rounded-3xl overflow-hidden divide-y divide-gray-200/20 dark:divide-white/10">
+          <div class="p-4">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="material-icons-round text-primary text-xl">text_fields</span>
+              <span class="font-bold text-secondary dark:text-white">Text Size</span>
+            </div>
+            <div class="flex items-center justify-between px-2 gap-4">
+              <span class="text-xs font-bold text-secondary dark:text-pearl-beige">A</span>
+              <input class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-primary" max="5" min="1" type="range" value="3"/>
+              <span class="text-xl font-bold text-secondary dark:text-pearl-beige">A</span>
+            </div>
+          </div>
+
+          <div class="p-4 flex items-center justify-between hover:bg-white/10 transition-colors">
+            <div class="flex items-center gap-3">
+              <span class="material-icons-round text-primary text-xl">dark_mode</span>
+              <span class="font-bold text-secondary dark:text-white">Night Sky Theme</span>
+            </div>
+            <div class="relative inline-block w-12 h-6 align-middle select-none transition duration-200 ease-in">
+              <input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 dark:border-gray-600 transition-all duration-300 ease-in-out right-6 checked:right-0 checked:border-primary" id="toggle-theme" name="toggle" type="checkbox"/>
+              <label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 dark:bg-gray-600 cursor-pointer transition-colors duration-300 ease-in-out" for="toggle-theme"></label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-3">
+        <div class="glass rounded-3xl overflow-hidden divide-y divide-gray-200/20 dark:divide-white/10">
+          <button class="w-full p-4 flex items-center justify-between hover:bg-white/10 transition-colors text-left">
+            <span class="font-bold text-secondary dark:text-white pl-1">Help &amp; Support</span>
+            <span class="material-icons-round text-secondary/40 dark:text-pearl-beige/40">open_in_new</span>
+          </button>
+          <button class="w-full p-4 flex items-center justify-between hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors text-left group">
+            <span class="font-bold text-red-500 dark:text-red-400 pl-1">Delete Account</span>
+            <span class="material-icons-round text-red-500/40 dark:text-red-400/40 group-hover:text-red-500 transition-colors">delete_forever</span>
+          </button>
+        </div>
+      </section>
+
+      <button onclick="logout()" class="w-full py-4 text-center text-secondary/60 dark:text-pearl-beige/60 font-semibold hover:text-secondary dark:hover:text-white transition-colors">
+        Log Out
+      </button>
+
+      <div class="h-8"></div>
+      <p class="text-center text-[10px] text-secondary/30 dark:text-pearl-beige/20 pb-8">
+        SoulSync v2.4.1 (Build 8902)<br/>
+        Made with care for your mind.
+      </p>
+    </main>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+  <script>
+    requireAuth("index.html");
+
+    const themeToggle = document.getElementById("toggle-theme");
+    const html = document.documentElement;
+
+    // initial sync from current class (set by app.js)
+    themeToggle.checked = html.classList.contains("dark");
+
+    themeToggle.addEventListener("change", function () {
+      if (this.checked) {
+        html.classList.add("dark");
+        setTheme("dark");
+      } else {
+        html.classList.remove("dark");
+        setTheme("light");
+      }
+    });
+  </script>
+</body>
+</html>

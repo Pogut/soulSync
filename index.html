@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SoulSync Login</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "deep-space-blue": "#1b2b32",
+              "steel-blue": "#365663",
+              "pearl-beige": "#e3e1d5",
+              "bright-snow": "#f9fafb",
+              "pitch-black": "#0d1418",
+              "soft-gray": "#95b8c6",
+            },
+            fontFamily: {
+              sans: ["Manrope", "sans-serif"],
+            },
+            boxShadow: {
+              soft: "0 4px 20px -2px rgba(54, 86, 99, 0.1)",
+              glow: "0 0 15px rgba(227, 225, 213, 0.5)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        font-family: "Manrope", sans-serif;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .warm-gradient {
+        background: radial-gradient(
+              circle at top right,
+              rgba(227, 225, 213, 0.4) 0%,
+              rgba(249, 250, 251, 0) 60%
+            ),
+            radial-gradient(
+              circle at bottom left,
+              rgba(227, 225, 213, 0.4) 0%,
+              rgba(249, 250, 251, 0) 60%
+            );
+      }
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-bright-snow text-deep-space-blue min-h-[100dvh] flex flex-col justify-between overflow-x-hidden antialiased warm-gradient relative"
+  >
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+      <div class="absolute top-[-10%] right-[-5%] w-64 h-64 bg-pearl-beige/30 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-[20%] left-[-10%] w-80 h-80 bg-pearl-beige/20 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="flex-1 flex flex-col px-8 pt-12 pb-6 w-full max-w-md mx-auto z-10">
+      <div class="flex flex-col items-center mb-10 mt-6 space-y-5">
+        <div class="relative">
+          <div class="absolute inset-0 bg-pearl-beige/40 blur-xl rounded-full scale-150"></div>
+          <div
+            class="relative w-16 h-16 rounded-2xl bg-white/80 backdrop-blur-sm border border-white/50 flex items-center justify-center shadow-soft"
+          >
+            <span
+              class="material-symbols-outlined text-steel-blue text-3xl"
+              style="font-variation-settings: 'FILL' 1, 'wght' 300;"
+            >
+              spa
+            </span>
+          </div>
+        </div>
+
+        <div class="text-center space-y-2">
+          <h1 class="text-3xl font-bold tracking-tight text-deep-space-blue">SoulSync</h1>
+          <p class="text-steel-blue text-[15px] font-medium leading-relaxed max-w-[260px] mx-auto opacity-90">
+            Your safe space for reflection.<br />Welcome back.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-6 w-full">
+        <div class="space-y-1.5">
+          <label class="ml-4 text-xs font-bold text-steel-blue/80 uppercase tracking-wide" for="email">Email</label>
+          <div class="relative group">
+            <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+              <span
+                class="material-symbols-outlined text-steel-blue/40 group-focus-within:text-steel-blue transition-colors duration-300"
+                >mail</span
+              >
+            </div>
+            <input
+              class="block w-full rounded-3xl border-0 bg-white/70 py-4 pl-14 pr-4 text-deep-space-blue shadow-sm ring-1 ring-inset ring-pearl-beige placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-steel-blue/30 focus:bg-white transition-all duration-300 ease-out"
+              id="email"
+              placeholder="Enter your email"
+              type="email"
+            />
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="ml-4 text-xs font-bold text-steel-blue/80 uppercase tracking-wide" for="password"
+            >Password</label
+          >
+          <div class="relative group">
+            <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+              <span
+                class="material-symbols-outlined text-steel-blue/40 group-focus-within:text-steel-blue transition-colors duration-300"
+                >lock</span
+              >
+            </div>
+            <input
+              class="block w-full rounded-3xl border-0 bg-white/70 py-4 pl-14 pr-12 text-deep-space-blue shadow-sm ring-1 ring-inset ring-pearl-beige placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-steel-blue/30 focus:bg-white transition-all duration-300 ease-out"
+              id="password"
+              placeholder="Enter your password"
+              type="password"
+            />
+            <button
+              type="button"
+              aria-label="Toggle password visibility"
+              class="absolute inset-y-0 right-0 pr-4 flex items-center text-steel-blue/40 hover:text-steel-blue transition-colors focus:outline-none"
+              onclick="const i=document.getElementById('password'); i.type=(i.type==='password'?'text':'password');"
+            >
+              <span class="material-symbols-outlined text-[20px]">visibility</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex justify-end pr-2">
+          <a class="text-sm font-semibold text-steel-blue hover:text-deep-space-blue transition-colors duration-200" href="#">
+            Forgot Password?
+          </a>
+        </div>
+
+        <!-- LOGIN ACTION -->
+        <button
+          type="button"
+          onclick="setAuthed(true); go('dashboard.html')"
+          class="w-full bg-gradient-to-r from-deep-space-blue to-steel-blue text-white font-bold py-4 px-6 rounded-3xl shadow-lg shadow-steel-blue/20 hover:shadow-xl hover:shadow-steel-blue/30 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-3 mt-2"
+        >
+          <span class="tracking-wide">Sign In</span>
+          <span class="material-symbols-outlined text-xl">arrow_forward</span>
+        </button>
+      </div>
+
+      <div class="relative py-8 mt-2">
+        <div aria-hidden="true" class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-pearl-beige/80"></div>
+        </div>
+        <div class="relative flex justify-center">
+          <span class="bg-bright-snow/50 backdrop-blur-sm px-4 text-xs font-semibold text-steel-blue/70 uppercase tracking-wider"
+            >Or continue with</span
+          >
+        </div>
+      </div>
+
+      <div class="flex justify-center gap-5 mb-2">
+        <button
+          aria-label="Sign in with Google"
+          class="group w-14 h-14 rounded-full bg-white border border-pearl-beige shadow-sm flex items-center justify-center hover:bg-bright-snow hover:-translate-y-0.5 transition-all duration-300"
+        >
+          <img
+            alt="Google Logo"
+            class="w-6 h-6 opacity-80 group-hover:opacity-100 transition-opacity"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOVCs6EjVW80LnCSkP_psoOfk_TajJ0Sctlw55cBZab_H4asFVsQpy-_0JMiAuKDbFEvzCwbWTFJpC7T0Cf0jOHpq0jzP_TmqbeoZgJEN1vhEerPqOyFb39ksWnCoJk6MmOTkysn6UQ_l6eebNQpQmn1mn55w6eCmggArRdanEuUJvxtFtYp5-tY3EuiNd9meczUvGFM4AJNBe4fqy9QqzafP-HKti52xYT7XzFyetF9CB5pXcvq59jGMq16GwfwkaIDMeDNYDI15J"
+          />
+        </button>
+
+        <button
+          aria-label="Sign in with Apple"
+          class="group w-14 h-14 rounded-full bg-white border border-pearl-beige shadow-sm flex items-center justify-center hover:bg-bright-snow hover:-translate-y-0.5 transition-all duration-300"
+        >
+          <span class="material-symbols-outlined text-deep-space-blue text-3xl opacity-80 group-hover:opacity-100 transition-opacity"
+            >ios</span
+          >
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-white/60 backdrop-blur-lg border-t border-pearl-beige p-6 pb-8 w-full z-20">
+      <div class="flex flex-col items-center gap-4 max-w-md mx-auto">
+        <p class="text-steel-blue text-sm font-medium">Not a member yet?</p>
+
+        <button
+          type="button"
+          onclick="go('signup.html')"
+          class="w-full bg-transparent border-2 border-pearl-beige text-deep-space-blue font-bold py-3.5 px-6 rounded-3xl hover:bg-pearl-beige/20 hover:border-steel-blue/30 transition-all duration-300 active:scale-[0.98]"
+        >
+          Create an Account
+        </button>
+
+        <div class="flex items-center gap-1.5 mt-2 opacity-60 hover:opacity-100 transition-opacity cursor-default">
+          <span class="material-symbols-outlined text-[16px] text-steel-blue">lock</span>
+          <span class="text-xs text-steel-blue font-semibold tracking-wide">Private &amp; Secure Space</span>
+        </div>
+      </div>
+
+      <div class="h-1.5 w-32 bg-gray-300/80 rounded-full mx-auto mt-6"></div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>

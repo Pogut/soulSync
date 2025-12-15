@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SoulSync Main Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@500;700&family=Material+Icons+Round&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#6EA1B5",
+              secondary: "#2B3D54",
+              "pearl-beige": "#F6E8C5",
+              "pitch-black": "#120D02",
+              "bright-snow": "#F9F7F4",
+              "background-light": "#F9F7F4",
+              "background-dark": "#120D02",
+            },
+            fontFamily: {
+              display: ["Quicksand", "sans-serif"],
+              body: ["Nunito", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "1.5rem",
+              xl: "1rem",
+              "2xl": "1.5rem",
+              "3xl": "2rem",
+            },
+            animation: {
+              float: "float 8s ease-in-out infinite",
+              "pulse-glow": "pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              twinkle: "twinkle 4s ease-in-out infinite",
+              blob: "blob 10s infinite",
+            },
+            keyframes: {
+              float: { "0%, 100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-10px)" } },
+              "pulse-glow": { "0%, 100%": { opacity: 1, transform: "scale(1)" }, "50%": { opacity: 0.8, transform: "scale(1.05)" } },
+              twinkle: { "0%, 100%": { opacity: 0.3 }, "50%": { opacity: 0.8 } },
+              blob: {
+                "0%": { transform: "translate(0px, 0px) scale(1)" },
+                "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+                "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+                "100%": { transform: "translate(0px, 0px) scale(1)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      .glass {
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+      }
+      .dark .glass {
+        background: rgba(43, 61, 84, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+      }
+      .nav-glass {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border-top: 1px solid rgba(255, 255, 255, 0.4);
+      }
+      .dark .nav-glass {
+        background: rgba(18, 13, 2, 0.85);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+      }
+      body { min-height: max(884px, 100dvh); }
+    </style>
+  </head>
+
+  <body class="bg-background-light dark:bg-background-dark font-body text-secondary dark:text-pearl-beige antialiased transition-colors duration-300 overflow-hidden h-screen w-full relative">
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#E8F1F5] to-background-light dark:from-[#1A2639] dark:to-background-dark opacity-100 transition-colors duration-500"></div>
+      <div class="absolute top-[-10%] right-[-20%] w-[300px] h-[300px] bg-primary/20 dark:bg-primary/10 rounded-full blur-[80px] animate-float"></div>
+      <div class="absolute bottom-[20%] left-[-10%] w-[250px] h-[250px] bg-pearl-beige/40 dark:bg-secondary/30 rounded-full blur-[60px] animate-float" style="animation-delay: 2s;"></div>
+      <svg class="absolute top-[15%] left-[10%] w-6 h-6 text-primary dark:text-pearl-beige opacity-40 animate-twinkle" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+      <svg class="absolute top-[40%] right-[15%] w-4 h-4 text-primary dark:text-pearl-beige opacity-30 animate-twinkle" fill="currentColor" style="animation-delay: 1.5s;" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+    </div>
+
+    <div class="relative z-10 flex flex-col h-full max-w-md mx-auto bg-transparent">
+      <header class="flex items-center justify-between px-6 pt-12 pb-2 sticky top-0 z-20 transition-all duration-300">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-pearl-beige/30 p-0.5 border border-white/40 dark:border-white/10">
+            <img alt="User Profile" class="w-full h-full rounded-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAONmg54TxXNAdYJzNeCU70r5nhvtAzEiBs2kPuT4Yuo5_px46fBBpyrLMC3EEEZ3TYFouPm044r9fGLDV3s4AqvBkzTXIgDQZJhzzGDE8oiN5uot8kQkCA3wLG-WlgsgNdoIFqAQRyaHojJZK76rloAI77UfaBrljbufSI0nZZ1wPkxnmVjqjC5YjJFly8Atwpaw_bES4D9RGu_Ruz1im74BWBZSq6B7TvMJguOO76QuevaOZ-SAnPrYtOEBM9l7swSiWZ9pS7l69Y" />
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xs font-semibold text-secondary/60 dark:text-pearl-beige/60 uppercase tracking-wide">Good Morning</span>
+            <span class="font-display font-bold text-xl text-secondary dark:text-white">Alex</span>
+          </div>
+        </div>
+
+        <button class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors relative">
+          <span class="material-icons-round text-2xl text-secondary dark:text-pearl-beige opacity-80">notifications</span>
+          <span class="absolute top-2 right-2.5 w-2 h-2 bg-red-400 rounded-full border-2 border-background-light dark:border-background-dark"></span>
+        </button>
+      </header>
+
+      <main class="flex-1 overflow-y-auto no-scrollbar px-5 py-4 space-y-6 pb-32">
+        <div class="glass p-6 rounded-3xl relative overflow-hidden group active:scale-[0.98] transition-transform duration-200 cursor-pointer">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl -mr-8 -mt-8"></div>
+          <h2 class="font-display font-bold text-2xl text-secondary dark:text-white leading-tight mb-2 relative z-10">
+            How is your <br /><span class="text-primary dark:text-primary">heart feeling?</span>
+          </h2>
+          <p class="text-secondary/70 dark:text-bright-snow/70 text-sm mb-6 max-w-[80%]">Take a moment to ground yourself and track your emotional landscape.</p>
+          <div class="flex items-center gap-2">
+            <button onclick="go('mood-journal.html')" class="bg-secondary dark:bg-pearl-beige text-white dark:text-secondary px-6 py-3 rounded-2xl font-bold text-sm shadow-lg shadow-secondary/10 flex items-center gap-2">
+              <span class="material-icons-round text-lg">mood</span>
+              Check-in
+            </button>
+            <span class="text-xs text-secondary/40 dark:text-pearl-beige/40 font-semibold px-2">It only takes 30s</span>
+          </div>
+        </div>
+
+        <div class="glass p-6 rounded-3xl">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-display font-bold text-lg text-secondary dark:text-white">Weekly Whisper</h3>
+            <span class="material-icons-round text-primary/40">insights</span>
+          </div>
+          <div class="flex gap-4 items-center">
+            <div class="w-12 h-12 rounded-2xl bg-pearl-beige/30 flex items-center justify-center text-xl shrink-0">🌊</div>
+            <div>
+              <p class="text-sm font-semibold text-secondary dark:text-white mb-1">Calmness is growing</p>
+              <p class="text-xs text-secondary/60 dark:text-bright-snow/60 leading-relaxed">
+                You've felt peaceful in 4 of your last 5 entries. That's a 20% increase from last week.
+              </p>
+              <button onclick="go('insights.html')" class="mt-2 text-xs font-bold text-primary hover:underline">View Insights →</button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-display font-bold text-lg text-secondary dark:text-white mb-4 px-2">For you today</h3>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="glass p-5 rounded-3xl flex flex-col gap-3 hover:bg-white/40 dark:hover:bg-white/5 transition-colors cursor-pointer"   onclick="go('breathing.html')"
+            >
+              <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                <span class="material-icons-round text-primary dark:text-primary text-xl">self_improvement</span>
+              </div>
+              <span class="font-bold text-secondary dark:text-white text-sm">Breathing</span>
+            </div>
+            <div class="glass p-5 rounded-3xl flex flex-col gap-3 hover:bg-white/40 dark:hover:bg-white/5 transition-colors cursor-pointer" onclick="go('journal.html')">
+              <div class="w-10 h-10 rounded-full bg-pearl-beige/40 flex items-center justify-center">
+                <span class="material-icons-round text-secondary/80 dark:text-pearl-beige text-xl">edit_note</span>
+              </div>
+              <span class="font-bold text-secondary dark:text-white text-sm">Journal</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass p-6 rounded-3xl border border-primary/10">
+          <span class="material-icons-round text-primary/30 text-3xl mb-2">format_quote</span>
+          <p class="font-display font-medium text-lg text-secondary/90 dark:text-bright-snow/90 leading-relaxed italic">
+            "Feelings are something you have; not something you are."
+          </p>
+          <p class="text-right text-xs font-bold text-secondary/40 dark:text-pearl-beige/40 mt-4 uppercase tracking-widest">— Shannon L. Alder</p>
+        </div>
+      </main>
+
+      <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto nav-glass rounded-t-3xl pb-8 pt-2 px-6 flex justify-between items-end z-40 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+        <button onclick="go('dashboard.html')" class="flex flex-col items-center gap-1.5 w-20 group">
+          <div class="p-1 rounded-xl group-hover:bg-secondary/5 dark:group-hover:bg-white/5 transition-colors">
+            <span class="material-icons-round text-[28px] text-secondary dark:text-pearl-beige transition-colors">grid_view</span>
+          </div>
+          <span class="text-[10px] font-bold text-secondary dark:text-pearl-beige tracking-wide">Dashboard</span>
+        </button>
+
+        <div class="relative w-20 flex justify-center">
+          <button onclick="go('chat-selection.html')" class="absolute bottom-4 w-16 h-16 bg-secondary dark:bg-pearl-beige rounded-full shadow-[0_8px_20px_rgba(43,61,84,0.3)] dark:shadow-[0_8px_20px_rgba(246,232,197,0.2)] flex items-center justify-center transform transition-transform hover:-translate-y-1 active:scale-95 ring-4 ring-white dark:ring-[#120D02]">
+            <span class="material-icons-round text-3xl text-white dark:text-secondary animate-pulse-glow">auto_awesome</span>
+          </button>
+        </div>
+
+        <button onclick="go('settings.html')" class="flex flex-col items-center gap-1.5 w-20 group">
+          <div class="p-1 rounded-xl group-hover:bg-secondary/5 dark:group-hover:bg-white/5 transition-colors">
+            <span class="material-icons-round text-[28px] text-secondary/40 dark:text-pearl-beige/40 group-hover:text-secondary dark:group-hover:text-pearl-beige transition-colors">settings</span>
+          </div>
+          <span class="text-[10px] font-bold text-secondary/40 dark:text-pearl-beige/40 group-hover:text-secondary dark:group-hover:text-pearl-beige transition-colors tracking-wide">Settings</span>
+        </button>
+      </nav>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+    <script>requireAuth("index.html");</script>
+  </body>
+</html>
